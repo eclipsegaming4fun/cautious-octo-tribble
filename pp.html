@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIME IS TICKING...</title>
+    <style>
+        /* Background and page style */
+        body {
+            background-color: black;
+            color: red;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Ensures elements are stacked vertically */
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Centered text with scary effects */
+        h1 {
+            font-size: 60px;
+            text-align: center;
+            animation: flicker 1.5s infinite alternate;
+            color: #FF0000;
+            text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px darkred;
+        }
+
+        /* Timer styling */
+        #timer {
+            font-size: 100px;
+            font-weight: bold;
+            color: red;
+            animation: pulse 1s infinite alternate;
+            text-shadow: 0 0 15px red, 0 0 30px red, 0 0 50px red;
+        }
+
+        /* Pulse effect for timer */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center">
+        <!-- Image positioned above the text -->
+        <img src="https://cdn.glitch.global/1888ef93-f751-46e0-a1be-2a223185e7ca/costume1%20(1).svg?v=1742794234585" width="40%">
+        <h1>TIME IS TICKING...</h1>
+        <div id="timer">30:00</div>
+    </div>
+
+    <script>
+        // Set the countdown time (30 minutes in seconds)
+        let timeLeft = 30 * 60;
+
+        // Get the timer display element
+        const timerElement = document.getElementById('timer');
+
+        // Function to format the time as MM:SS
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        // Function to update the timer
+        function updateTimer() {
+            // Display the time
+            timerElement.textContent = formatTime(timeLeft);
+
+            // If time is up, stop the timer and show an alert
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("TIME'S UP... NOW PERISH!");
+                document.body.style.backgroundColor = "red";
+                document.body.style.color = "black";
+                document.getElementById("timer").style.color = "black";
+                document.getElementById("timer").style.textShadow = "none";
+            } else {
+                timeLeft--;
+            }
+        }
+
+        // Update the timer every second
+        const timerInterval = setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
